@@ -25,12 +25,14 @@ from rich.progress_bar import ProgressBar
 from models import Task, TaskConflict, Priority
 from parser import MarkdownParser
 from organizer import ScheduleOrganizer
+from sheets_sync import GoogleSheetsSync
 
 class ScheduleCLI:
     def __init__(self, default_file: str = "sample_schedule.md"):
         self.console = Console()
         self.file_path = default_file
         self.organizer = ScheduleOrganizer()
+        self.sheets_sync = GoogleSheetsSync()
         self.load_schedule(self.file_path)
 
     def load_schedule(self, file_path: str) -> bool:
@@ -50,6 +52,8 @@ class ScheduleCLI:
             self.organizer = ScheduleOrganizer(tasks)
             self.organizer.sort_tasks(by='time')
             self.console.print(f"[bold green]Successfully loaded fixed schedule ({len(tasks)} routine tasks) from '{target_path}'![/bold green]")
+            if self.sheets_sync.config.get("auto_sync"):
+                self.sync_to_google_sheets(quiet=True)
             return True
         except Exception as e:
             self.console.print(f"[bold red]Failed to parse file:[/bold red] {e}")
@@ -258,6 +262,77 @@ class ScheduleCLI:
 
         self.console.print(s_table)
 
+    def sync_to_google_sheets(self, quiet: bool = False) -> None:
+        """Syncs current routine tasks to Google Sheets."""
+        if not quiet:
+            self.console.print("[cyan]Connecting to Google Sheets...[/cyan]")
+        
+        result = self.sheets_sync.sync_tasks(self.organizer.tasks)
+        if result.get("success"):
+            title = result.get("spreadsheet_title", "Google Sheet")
+            rows = result.get("rows_synced", 0)
+            url = result.get("url", "")
+            sheet_name = result.get("sheet_name", "Schedule")
+            
+            panel_text = (
+                f"[bold green]✨ Successfully synchronized {rows} routine tasks to Google Sheets![/bold green]\n"
+                f"[bold]Spreadsheet:[/bold] {title}\n"
+                f"[bold]Worksheet Tab:[/bold] {sheet_name}\n"
+            )
+            if url:
+                panel_text += f"[bold]URL:[/bold] {url}"
+            self.console.print(Panel(panel_text, title="📊 Google Sheets Sync Complete", border_style="green"))
+        else:
+            err = result.get("error", "Unknown error")
+            self.console.print(Panel(f"[bold red]Sync Failed:[/bold red]\n{err}", title="⚠️ Google Sheets Sync Error", border_style="red"))
+            if "credentials" in err.lower() or "spreadsheet" in err.lower() or "configured" in err.lower():
+                self.console.print("[yellow]Tip: Select Option 9 from the menu to configure Google Sheets settings.[/yellow]")
+
+    def configure_google_sheets(self) -> None:
+        """Interactive setup menu for Google Sheets sync configuration."""
+        details = self.sheets_sync.get_status_details()
+
+        self.console.print("\n[bold cyan]⚙️ Google Sheets Sync Settings[/bold cyan]")
+        
+        status_table = Table(show_header=False, border_style="cyan")
+        status_table.add_column("Setting", style="bold yellow")
+        status_table.add_column("Current Value", style="white")
+
+        status_table.add_row("gspread Library Installed", "[green]Yes[/green]" if details['gspread_installed'] else "[red]No (run pip install gspread google-auth)[/red]")
+        status_table.add_row("Credentials File Exists", f"[green]Yes[/green] ({details['credentials_path']})" if details['credentials_file_exists'] else f"[red]No[/red] ({details['credentials_path']})")
+        status_table.add_row("Spreadsheet ID / URL", details['spreadsheet_id'] or "[dim]Not Set[/dim]")
+        status_table.add_row("Worksheet Name", details['sheet_name'])
+        status_table.add_row("Auto-Sync on Schedule Load", "[bold green]Enabled[/bold green]" if details['auto_sync'] else "[dim]Disabled[/dim]")
+
+        self.console.print(status_table)
+
+        self.console.print("\n1. Set Spreadsheet ID / URL")
+        self.console.print("2. Set Credentials JSON File Path")
+        self.console.print("3. Set Worksheet Tab Name")
+        self.console.print("4. Toggle Auto-Sync on Load")
+        self.console.print("0. Back to Main Menu")
+
+        sub_choice = Prompt.ask("\nSelect setting to modify", choices=["0", "1", "2", "3", "4"], default="0")
+
+        if sub_choice == "1":
+            new_id = Prompt.ask("Enter Google Spreadsheet ID or full URL", default=details['spreadsheet_id'])
+            self.sheets_sync.save_config(spreadsheet_id=new_id)
+            self.console.print("[bold green]Spreadsheet ID updated successfully![/bold green]")
+        elif sub_choice == "2":
+            new_creds = Prompt.ask("Enter path to Service Account JSON file", default=self.sheets_sync.config.get("credentials_file", "credentials.json"))
+            self.sheets_sync.save_config(credentials_file=new_creds)
+            self.console.print("[bold green]Credentials path updated successfully![/bold green]")
+        elif sub_choice == "3":
+            new_name = Prompt.ask("Enter Worksheet tab name", default=details['sheet_name'])
+            self.sheets_sync.save_config(sheet_name=new_name)
+            self.console.print("[bold green]Worksheet tab name updated successfully![/bold green]")
+        elif sub_choice == "4":
+            current_auto = details['auto_sync']
+            new_auto = not current_auto
+            self.sheets_sync.save_config(auto_sync=new_auto)
+            state_str = "Enabled" if new_auto else "Disabled"
+            self.console.print(f"[bold green]Auto-sync on load is now {state_str}![/bold green]")
+
     def run_menu(self) -> None:
         while True:
             self.console.print("\n[bold magenta]=== Fixed Daily Routine CLI ===[/bold magenta]")
@@ -268,9 +343,11 @@ class ScheduleCLI:
             self.console.print("5. ⚠️ Check Routine Overlap Conflicts")
             self.console.print("6. 📊 Routine Overview & Statistics")
             self.console.print("7. 📂 Load Different Schedule File")
+            self.console.print("8. 🟢 Sync Schedule to Google Sheets")
+            self.console.print("9. ⚙️ Configure Google Sheets Sync")
             self.console.print("0. ❌ Exit")
 
-            choice = Prompt.ask("\nSelect an option", choices=["0", "1", "2", "3", "4", "5", "6", "7"], default="1")
+            choice = Prompt.ask("\nSelect an option", choices=["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], default="1")
 
             if choice == "1":
                 self.display_routine_view()
@@ -287,6 +364,10 @@ class ScheduleCLI:
             elif choice == "7":
                 new_file = Prompt.ask("Enter path to markdown file", default=self.file_path)
                 self.load_schedule(new_file)
+            elif choice == "8":
+                self.sync_to_google_sheets()
+            elif choice == "9":
+                self.configure_google_sheets()
             elif choice == "0":
                 self.console.print("[bold green]Goodbye! Keep crushing your daily routine! 🚀[/bold green]")
                 break

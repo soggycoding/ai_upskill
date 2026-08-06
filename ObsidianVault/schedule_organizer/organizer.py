@@ -21,6 +21,22 @@ class ScheduleOrganizer:
             self.tasks.sort(key=lambda t: (t.start_time, t.end_time))
         return self.tasks
 
+    def get_export_data(self) -> List[Dict]:
+        """Returns structured dictionary representation of all tasks for exports and syncs."""
+        sorted_tasks = sorted(self.tasks, key=lambda t: (t.start_time, t.end_time))
+        return [
+            {
+                "section": t.section or "General",
+                "time_slot": t.time_range_str,
+                "duration_minutes": t.duration_minutes,
+                "description": t.description,
+                "priority": t.priority.name,
+                "completed": t.completed,
+                "tags": t.tags
+            }
+            for t in sorted_tasks
+        ]
+
     def find_conflicts(self) -> List[TaskConflict]:
         """Identifies all pairs of tasks with overlapping time ranges."""
         conflicts = []
