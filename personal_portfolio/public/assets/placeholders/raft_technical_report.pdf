@@ -1,0 +1,9 @@
+DETERMINISTIC RAFT CONSENSUS SIMULATOR: TECHNICAL REPORT
+Authors: [YOUR NAME], [RESEARCH TEAM]
+Affiliation: [DEPARTMENT OF COMPUTER SCIENCE, UNIVERSITY NAME]
+
+ABSTRACT:
+This paper evaluates discrete-event simulation techniques for uncovering Byzantine and asymmetric partition race conditions in Raft consensus. We present an event-driven execution harness decoupled from wall-clock time that guarantees deterministic reproduction of split-vote loops and state machine truncation anomalies.
+
+1. INTRODUCTION
+Distributed consensus algorithms must maintain safety invariants despite network partitions, message reordering, and arbitrary process pauses...

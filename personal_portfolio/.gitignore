@@ -1,0 +1,28 @@
+# ==========================================================================
+# PERSONAL PORTFOLIO — GIT IGNORE POLICY
+# Protects private documents, credentials, and local historical snapshots
+# ==========================================================================
+
+# 1. Private & Confidential Material (HARD SECURITY BOUNDARY)
+private/
+*.secret
+*.key
+*.pem
+*.env
+
+# 2. Local CMS Credentials & State
+content/settings.json
+content/history/
+*.tmp*
+
+# 3. Node.js & Tooling
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 4. OS & Editor Artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.bak

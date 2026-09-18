@@ -1,0 +1,9 @@
+{
+  "adminPasscodeHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+  "passcodeHint": "Default passcode: admin123 (Configure in CMS Settings)",
+  "sessionExpiryHours": 24,
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3000
+  }
+}

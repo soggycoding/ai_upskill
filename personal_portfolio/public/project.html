@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study — Academic &amp; Technical Portfolio</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/theme.js"></script>
+  <style>
+    .case-study-hero {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 550;
+      margin-bottom: 20px;
+    }
+    .case-study-title {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .case-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .meta-box h4 {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .meta-box p {
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+    .contribution-callout {
+      margin: 36px 0;
+      padding: 24px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+    .contribution-callout h3 {
+      font-size: 1.05rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .contribution-callout p {
+      color: var(--text-primary);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .case-section {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-section:last-of-type {
+      border-bottom: none;
+    }
+    .case-figure {
+      margin: 24px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #0f172a;
+    }
+    .case-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .case-figure figcaption {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+    .bullets-list {
+      list-style: square;
+      padding-left: 20px;
+      margin-top: 12px;
+      color: var(--text-secondary);
+    }
+    .bullets-list li {
+      margin-bottom: 8px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .related-card {
+      padding: 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-fast);
+    }
+    .related-card:hover {
+      border-color: var(--card-hover-border);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="logo-identity">
+        <a href="/" class="logo-name" id="nav-home-link">[YOUR NAME]</a>
+        <span class="logo-status">Technical Case Study</span>
+      </div>
+
+      <nav class="nav-container" aria-label="Breadcrumb navigation">
+        <ul class="nav-links">
+          <li><a href="/">← Return to Portfolio</a></li>
+          <li><a href="/cv">Printable CV</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/admin" class="btn btn-outline btn-sm">CMS</a>
+        <button id="theme-toggle" class="btn-icon" aria-label="Switch theme"></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    <div class="container">
+      <div id="case-study-loading" style="padding: 60px 0; text-align: center; color: var(--text-muted);">
+        Loading technical case study...
+      </div>
+
+      <article id="case-study-content" style="display: none;">
+        <!-- Hero -->
+        <header class="case-study-hero">
+          <a href="/#projects" class="back-link">← Back to All Projects</a>
+          <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+            <span id="cs-year" style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);">2025</span>
+            <span>·</span>
+            <span id="cs-status-badge" class="status-badge status-completed">COMPLETED</span>
+            <span>·</span>
+            <span id="cs-category" style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);">Distributed Systems</span>
+          </div>
+
+          <h1 id="cs-title" class="case-study-title">Project Title</h1>
+          <p id="cs-short-desc" style="font-size: 1.15rem; color: var(--text-secondary); max-width: 800px; line-height: 1.5;"></p>
+
+          <!-- External Actions -->
+          <div id="cs-links-row" style="display: flex; gap: 12px; margin-top: 16px;">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Metadata Grid -->
+          <div class="case-meta-grid">
+            <div class="meta-box">
+              <h4>Role</h4>
+              <p id="cs-role"></p>
+            </div>
+            <div class="meta-box">
+              <h4>Core Technologies</h4>
+              <p id="cs-technologies"></p>
+            </div>
+            <div class="meta-box">
+              <h4>Engineering Tools</h4>
+              <p id="cs-tools"></p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Explicit Individual Contribution Section (Section 13 Compliance) -->
+        <section class="contribution-callout" aria-labelledby="cs-contrib-heading">
+          <h3 id="cs-contrib-heading">Individual Contribution</h3>
+          <p id="cs-contribution"></p>
+        </section>
+
+        <!-- Technical Schematic Image (if available) -->
+        <div id="cs-figure-wrapper">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Full Technical Context & Description -->
+        <section id="sec-context" class="case-section">
+          <h2>Overview &amp; Context</h2>
+          <p id="cs-full-desc" style="font-size: 1.05rem; line-height: 1.7;"></p>
+        </section>
+
+        <!-- Objectives -->
+        <section id="sec-objectives" class="case-section">
+          <h2>Technical Objectives &amp; Invariants</h2>
+          <ul id="cs-objectives" class="bullets-list"></ul>
+        </section>
+
+        <!-- Approach & Methodology -->
+        <section id="sec-approach" class="case-section">
+          <h2>Engineering Approach &amp; Design Architecture</h2>
+          <p id="cs-approach" style="font-size: 1.02rem; line-height: 1.65;"></p>
+        </section>
+
+        <!-- Implementation Details -->
+        <section id="sec-implementation" class="case-section">
+          <h2>Technical Implementation Details</h2>
+          <p id="cs-implementation" style="font-size: 1.02rem; line-height: 1.65;"></p>
+        </section>
+
+        <!-- Challenges & Engineering Iterations -->
+        <section id="sec-challenges" class="case-section">
+          <h2>Key Engineering Challenges</h2>
+          <ul id="cs-challenges" class="bullets-list"></ul>
+        </section>
+
+        <section id="sec-iterations" class="case-section">
+          <h2>Design Iterations &amp; Refinements</h2>
+          <ul id="cs-iterations" class="bullets-list"></ul>
+        </section>
+
+        <!-- Empirical Results & Measurements -->
+        <section id="sec-results" class="case-section">
+          <h2>Empirical Results &amp; Validation</h2>
+          <p id="cs-results" style="font-size: 1.02rem; line-height: 1.65;"></p>
+        </section>
+
+        <!-- Lessons Learned -->
+        <section id="sec-lessons" class="case-section">
+          <h2>Lessons Learned &amp; Takeaways</h2>
+          <p id="cs-lessons" style="font-size: 1.02rem; line-height: 1.65;"></p>
+        </section>
+
+        <!-- Related Work -->
+        <section id="sec-related" class="case-section" style="border-bottom: none;">
+          <h2>Related Work &amp; Adjacent Projects</h2>
+          <div id="cs-related-grid" class="related-grid"></div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>
+        <span>Localhost Academic &amp; Professional Portfolio · 127.0.0.1</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/">Portfolio Home</a></li>
+        <li><a href="/cv">Printable CV</a></li>
+        <li><a href="/admin">CMS Console</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    async function loadProjectDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('slug');
+
+      const loadingDiv = document.getElementById('case-study-loading');
+      const contentArticle = document.getElementById('case-study-content');
+
+      if (!slug) {
+        loadingDiv.innerHTML = `<p style="color: var(--accent);">No project slug specified. <a href="/">Return to portfolio index</a>.</p>`;
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/content');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        // Update nav logo
+        if (data.profile && data.profile.name) {
+          document.getElementById('nav-home-link').textContent = data.profile.name;
+        }
+
+        const project = (data.projects || []).find(p => p.slug === slug);
+        if (!project) {
+          loadingDiv.innerHTML = `<p style="color: #ef4444;">Project with slug "<code>${escapeHtml(slug)}</code>" not found. <a href="/">Return to projects list</a>.</p>`;
+          return;
+        }
+
+        renderProject(project, data.projects);
+        loadingDiv.style.display = 'none';
+        contentArticle.style.display = 'block';
+        document.title = `${project.title} — Technical Case Study`;
+      } catch (err) {
+        loadingDiv.innerHTML = `<p style="color: #ef4444;">Failed to load project details: ${escapeHtml(err.message)}</p>`;
+      }
+    }
+
+    function renderProject(p, allProjects) {
+      document.getElementById('cs-title').textContent = p.title;
+      document.getElementById('cs-year').textContent = p.year || '';
+      document.getElementById('cs-category').textContent = p.category || '';
+      
+      const statusBadge = document.getElementById('cs-status-badge');
+      statusBadge.textContent = (p.status || 'Active').toUpperCase();
+      statusBadge.className = `status-badge status-${(p.status || 'completed').toLowerCase()}`;
+
+      document.getElementById('cs-short-desc').textContent = p.shortDescription || '';
+      document.getElementById('cs-role').textContent = p.role || 'Contributor';
+      document.getElementById('cs-technologies').textContent = (p.technologies || []).join(', ') || 'None specified';
+      document.getElementById('cs-tools').textContent = (p.tools || []).join(', ') || 'Standard Tooling';
+      document.getElementById('cs-contribution').textContent = p.contribution || 'No detailed contribution specified.';
+
+      // Action links
+      const linksRow = document.getElementById('cs-links-row');
+      let linksHtml = '';
+      if (p.github) {
+        linksHtml += `<a href="${encodeURI(p.github)}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">GitHub Repository ↗</a>`;
+      }
+      if (p.demo) {
+        linksHtml += `<a href="${encodeURI(p.demo)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Interactive Demo ↗</a>`;
+      }
+      if (p.documents && p.documents.length) {
+        p.documents.forEach(doc => {
+          linksHtml += `<a href="${encodeURI(doc)}" target="_blank" class="btn btn-outline btn-sm">Technical Report (PDF) ↓</a>`;
+        });
+      }
+      linksRow.innerHTML = linksHtml;
+
+      // Figure Image
+      const figWrapper = document.getElementById('cs-figure-wrapper');
+      if (p.images && p.images.length) {
+        figWrapper.innerHTML = `
+          <figure class="case-figure">
+            <img src="${encodeURI(p.images[0])}" alt="System Architecture Diagram for ${escapeHtml(p.title)}" loading="lazy">
+            <figcaption>Figure 1: Architectural topology and state verification mechanics for ${escapeHtml(p.title)}.</figcaption>
+          </figure>
+        `;
+      } else {
+        figWrapper.innerHTML = '';
+      }
+
+      // Context
+      renderTextSection('sec-context', 'cs-full-desc', p.fullDescription);
+      renderListSection('sec-objectives', 'cs-objectives', p.objectives);
+      renderTextSection('sec-approach', 'cs-approach', p.approach);
+      renderTextSection('sec-implementation', 'cs-implementation', p.implementation);
+      renderListSection('sec-challenges', 'cs-challenges', p.challenges);
+      renderListSection('sec-iterations', 'cs-iterations', p.iterations);
+      renderTextSection('sec-results', 'cs-results', p.results);
+      renderTextSection('sec-lessons', 'cs-lessons', p.lessonsLearned);
+
+      // Related Projects
+      const relatedSec = document.getElementById('sec-related');
+      const relatedGrid = document.getElementById('cs-related-grid');
+      const relatedSlugs = p.relatedProjects || [];
+      const relatedItems = allProjects.filter(item => relatedSlugs.includes(item.slug));
+
+      if (relatedItems.length > 0) {
+        relatedGrid.innerHTML = relatedItems.map(item => `
+          <div class="related-card">
+            <h4 style="margin-bottom: 6px;"><a href="/project.html?slug=${encodeURIComponent(item.slug)}">${escapeHtml(item.title)}</a></h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">${escapeHtml(item.shortDescription || '')}</p>
+          </div>
+        `).join('');
+        relatedSec.style.display = 'block';
+      } else {
+        relatedSec.style.display = 'none';
+      }
+    }
+
+    function renderTextSection(sectionId, elemId, content) {
+      const section = document.getElementById(sectionId);
+      const elem = document.getElementById(elemId);
+      if (!content || content.trim() === '') {
+        if (section) section.style.display = 'none';
+      } else {
+        if (section) section.style.display = 'block';
+        if (elem) elem.textContent = content;
+      }
+    }
+
+    function renderListSection(sectionId, elemId, items) {
+      const section = document.getElementById(sectionId);
+      const elem = document.getElementById(elemId);
+      if (!Array.isArray(items) || items.length === 0) {
+        if (section) section.style.display = 'none';
+      } else {
+        if (section) section.style.display = 'block';
+        if (elem) {
+          elem.innerHTML = items.map(it => `<li>${escapeHtml(it)}</li>`).join('');
+        }
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProjectDetails);
+  </script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+{
+  "profile": {
+    "name": "Jethro Navarro",
+    "identity": "Tambay",
+    "tagline": "Junior Dev",
+    "shortIntro": "[SHORT INTRODUCTION: 2-3 sentences outlining your primary research domain, technical focus, and current academic or engineering goals.]",
+    "fullBio": "[FULL BIO: Detailed background covering academic foundations, engineering philosophy, and long-term research trajectories. Replace this with your actual academic summary.]",
+    "email": "labistejethro@gmail.com",
+    "location": "Rizal",
+    "status": "Student",
+    "links": {
+      "github": "https://github.com/soggycoding",
+      "scholar": "-",
+      "linkedin": "-",
+      "orcid": "-"
+    },
+    "capabilities": [
+      {
+        "category": "Systems & Architecture",
+        "items": [
+          "Distributed Protocols",
+          "Concurrency & Threading",
+          "Memory Optimization",
+          "Cache Hierarchies",
+          "Fault Tolerance"
+        ]
+      },
+      {
+        "category": "Languages & Core Tools",
+        "items": [
+          "C / C++",
+          "Rust",
+          "Python",
+          "Go",
+          "POSIX / Linux",
+          "SQL"
+        ]
+      },
+      {
+        "category": "Research & Evaluation",
+        "items": [
+          "Benchmark Harness Design",
+          "Trace Analysis",
+          "Statistical Hypothesis Testing",
+          "Technical Paper Authoring"
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "proj-001",
+      "slug": "distributed-consensus-simulator",
+      "title": "Deterministic Raft Consensus Simulator",
+      "shortDescription": "A discrete-event simulation engine for validating partition tolerance and leader election under asynchronous network jitter.",
+      "fullDescription": "Engineered an event-driven framework to model network partitions, message drops, and clock drift in Raft clusters. Designed deterministic replay capability to isolate Byzantine anomalies and race conditions in leader election cycles.",
+      "category": "Distributed Systems",
+      "tags": [
+        "Distributed Systems",
+        "Raft",
+        "Fault Tolerance",
+        "Simulation"
+      ],
+      "year": 2025,
+      "status": "Completed",
+      "featured": true,
+      "role": "[LEAD SYSTEM ARCHITECT / RESEARCH ASSISTANT]",
+      "contribution": "[Formulated the state machine replication logic, implemented the discrete-event simulation queue, and constructed the network partition chaos harness.]",
+      "technologies": [
+        "Rust",
+        "Tokio",
+        "Tracing",
+        "GraphViz"
+      ],
+      "tools": [
+        "Cargo",
+        "GDB",
+        "Valgrind",
+        "Docker"
+      ],
+      "github": "https://github.com/[YOUR-USERNAME]/raft-consensus-sim",
+      "demo": "http://127.0.0.1:3000/demos/raft-sim",
+      "images": [
+        "/assets/placeholders/distributed-consensus.svg"
+      ],
+      "documents": [
+        "/assets/placeholders/raft_technical_report.pdf"
+      ],
+      "objectives": [
+        "Verify Raft safety invariants across asymmetric multi-node network partitions.",
+        "Enable 100% deterministic replay of race conditions via seedable pseudo-random event scheduling.",
+        "Benchmark election timeout convergence under simulated 10ms–500ms packet latency."
+      ],
+      "approach": "Adopted a discrete-event clock decoupled from wall-clock time. Every RPC, socket timeout, and disk I/O step is modeled as an immutable event tuple dispatched through a priority queue.",
+      "implementation": "Core consensus logic implemented as a pure state transition function `(State, Event) -> (NewState, Actions)`. Side-effects (network emissions, timer resets) are returned explicitly as actions, allowing test harnesses to inject arbitrary partitions without mocking sockets.",
+      "challenges": [
+        "Split-vote loops occurring when election timers clustered within narrow jitter bands.",
+        "State machine divergence during uncommitted log truncation after partition healing."
+      ],
+      "iterations": [
+        "v0.1: Native multi-threaded simulation with POSIX timers (non-deterministic, difficult to reproduce).",
+        "v0.2: Virtual tick-based scheduler using priority queues (eliminated flaky tests).",
+        "v1.0: Added automated linearizability checker verifying client read/write log consistency."
+      ],
+      "results": "Simulated 100,000 partition scenarios across 5-node clusters with zero linearizability violations. Replay fidelity achieved exact bit-for-bit event reproduction.",
+      "lessonsLearned": "Pure state transitions separate algorithmic correctness from asynchronous execution mechanics, radically reducing concurrency bugs.",
+      "relatedProjects": [
+        "high-throughput-log-indexer",
+        "micro-kernel-scheduler"
+      ]
+    },
+    {
+      "id": "proj-002",
+      "slug": "high-throughput-log-indexer",
+      "title": "Zero-Copy LSM Log Indexer",
+      "shortDescription": "A lightweight Log-Structured Merge (LSM) storage engine optimized for memory-bounded telemetry ingestion.",
+      "fullDescription": "Designed a specialized embedded log storage engine utilizing memory-mapped append logs, block-level Bloom filters, and tiered compaction to sustain high write throughput under tight RAM constraints.",
+      "category": "Storage & Databases",
+      "tags": [
+        "Storage Engine",
+        "LSM-Tree",
+        "Bloom Filter",
+        "C++"
+      ],
+      "year": 2024,
+      "status": "Completed",
+      "featured": true,
+      "role": "[BACKEND SYSTEMS ENGINEER]",
+      "contribution": "[Implemented the SkipList memtable, designed the SSTable binary layout with crc32 verification, and optimized the multi-threaded compaction worker.]",
+      "technologies": [
+        "C++20",
+        "POSIX mmap",
+        "CMake",
+        "Google Benchmark"
+      ],
+      "tools": [
+        "Clang",
+        "Perf",
+        "AddressSanitizer",
+        "FlameGraph"
+      ],
+      "github": "https://github.com/[YOUR-USERNAME]/lsm-log-indexer",
+      "demo": "",
+      "images": [
+        "/assets/placeholders/lsm-indexer.svg"
+      ],
+      "documents": [],
+      "objectives": [
+        "Achieve sustained write throughput exceeding 150k ops/sec on standard NVMe drives.",
+        "Bound memory footprint strictly within 256MB using arena allocators and tiered flushes.",
+        "Prevent write-stall spikes during background SSTable compaction cycles."
+      ],
+      "approach": "Employed Log-Structured Merge architecture with immutable memtables flushed sequentially. Reads pass through sparse index blocks and bit-vector Bloom filters to minimize disk seeks.",
+      "implementation": "Engineered lock-free SkipList memtable utilizing atomic pointer CAS swaps. Binary SSTable files are structured into 4KB data blocks, index blocks, and 10-bit/key Bloom filter footers with CRC32 integrity verification.",
+      "challenges": [
+        "Compaction debt causing read amplification during prolonged burst ingestion.",
+        "Disk I/O contention between concurrent flushes and client write logs."
+      ],
+      "iterations": [
+        "v1: Single background thread compaction (caused noticeable throughput drops).",
+        "v2: Dual-priority tiered compaction worker with rate-limited bandwidth throttling."
+      ],
+      "results": "Sustained 185,000 write ops/sec under 180MB RSS usage, maintaining p99 write latency under 1.2ms.",
+      "lessonsLearned": "Predictable memory allocation strategies and arena pools prevent allocator fragmentation in long-running storage daemons.",
+      "relatedProjects": [
+        "distributed-consensus-simulator"
+      ]
+    },
+    {
+      "id": "proj-003",
+      "slug": "neural-audio-denoiser",
+      "title": "Low-Latency Recurrent Audio Denoiser",
+      "shortDescription": "A causal hybrid CNN-GRU architecture for real-time speech enhancement on resource-constrained edge hardware.",
+      "fullDescription": "Developed a lightweight neural speech enhancement pipeline processing 16kHz audio in real time with under 15ms algorithmic latency. Evaluated across non-stationary background noise profiles.",
+      "category": "Applied Machine Learning",
+      "tags": [
+        "Machine Learning",
+        "Signal Processing",
+        "PyTorch",
+        "ONNX"
+      ],
+      "year": 2024,
+      "status": "Research",
+      "featured": true,
+      "role": "[RESEARCH ASSISTANT / ML DEVELOPER]",
+      "contribution": "[Engineered dataset preprocessing, spectrogram STFT pipelines, implemented the causal GRU model, and quantized the network to INT8 for edge deployment.]",
+      "technologies": [
+        "Python",
+        "PyTorch",
+        "NumPy",
+        "ONNX Runtime",
+        "C++"
+      ],
+      "tools": [
+        "Librosa",
+        "TensorBoard",
+        "Weights & Biases",
+        "FFmpeg"
+      ],
+      "github": "https://github.com/[YOUR-USERNAME]/neural-denoiser",
+      "demo": "http://127.0.0.1:3000/demos/denoiser",
+      "images": [
+        "/assets/placeholders/neural-denoiser.svg"
+      ],
+      "documents": [
+        "/assets/placeholders/denoiser_paper_draft.pdf"
+      ],
+      "objectives": [
+        "Deliver SNR improvement > 12 dB without introducing speech degradation.",
+        "Enforce strict causal processing with zero future-frame lookahead.",
+        "Execute inference within 8ms per 20ms audio frame on standard edge CPU."
+      ],
+      "approach": "Operated in the short-time Fourier transform (STFT) domain using complex spectral mapping. Emphasized causal convolutions and recurrent memory cells to enforce real-time causality.",
+      "implementation": "Designed a U-Net encoder-decoder backbone paired with dual-layer bidirectional GRUs replaced by forward-only masked GRU cells. Applied perceptual loss (PESQ surrogate) combined with multi-resolution STFT loss.",
+      "challenges": [
+        "Musical noise artifacts in high-frequency spectral bins under non-stationary noise.",
+        "Floating-point quantization accuracy degradation during 8-bit dynamic quantization."
+      ],
+      "iterations": [
+        "Baseline: Standard time-domain Conv-TasNet (high memory overhead).",
+        "Refined: Complex spectrogram masking with post-filter phase estimation."
+      ],
+      "results": "Achieved PESQ score of 3.12 (vs 2.15 noisy baseline) with 12.8ms total latency and 1.8M parameter count.",
+      "lessonsLearned": "Loss function formulation directly dictates perceptual quality; spectral magnitude loss alone produces significant speech smearing.",
+      "relatedProjects": []
+    },
+    {
+      "id": "proj-004",
+      "slug": "autonomous-rover-slam",
+      "title": "Visual-Inertial SLAM & Path Planner",
+      "shortDescription": "Monocular visual-inertial odometry and occupancy grid mapping for autonomous mobile robotics in GPS-denied environments.",
+      "fullDescription": "Constructed an integrated state estimation and graph-based SLAM system for terrestrial rovers. Combines Extended Kalman Filter sensor fusion with keyframe feature tracking and A* local trajectory generation.",
+      "category": "Robotics & Vision",
+      "tags": [
+        "Robotics",
+        "Computer Vision",
+        "SLAM",
+        "ROS2"
+      ],
+      "year": 2023,
+      "status": "Completed",
+      "featured": false,
+      "role": "[UNDERGRADUATE RESEARCHER]",
+      "contribution": "[Integrated IMU sensor driver fusion, implemented the loop-closure detection module via Bag of Visual Words, and tuned the local obstacle avoidance planner.]",
+      "technologies": [
+        "C++",
+        "Python",
+        "OpenCV",
+        "ROS2",
+        "Eigen3"
+      ],
+      "tools": [
+        "RViz",
+        "Gazebo",
+        "Git",
+        "GTest"
+      ],
+      "github": "https://github.com/[YOUR-USERNAME]/rover-vi-slam",
+      "demo": "",
+      "images": [
+        "/assets/placeholders/rover-slam.svg"
+      ],
+      "documents": [],
+      "objectives": [
+        "Maintain drift rate below 1.5% of total traveled distance in indoor hallways.",
+        "Detect loop closures and perform pose-graph optimization within 100ms.",
+        "Navigate dynamic obstacle courses safely at 0.5 m/s."
+      ],
+      "approach": "Loosely-coupled visual-inertial fusion: ORB feature extraction tracks camera motion while 6-DOF IMU pre-integration constraints stabilize high-frequency rotational changes.",
+      "implementation": "ROS2 node architecture with separate threads for feature extraction, local mapping, and global pose graph optimization using g2o.",
+      "challenges": [
+        "Feature loss in low-texture environments such as blank walls.",
+        "Sudden lighting transitions causing false-positive loop closures."
+      ],
+      "iterations": [
+        "v1: Pure visual odometry without IMU (suffered scale drift and failure during rapid turns).",
+        "v2: Added pre-integrated IMU factors and keyframe culling strategy."
+      ],
+      "results": "Successfully mapped a 400m indoor test course with 1.1% cumulative position drift and verified obstacle avoidance at 0.6 m/s.",
+      "lessonsLearned": "Sensor synchronization timestamps require microsecond hardware triggers; software timestamping creates fatal Kalman filter lag.",
+      "relatedProjects": [
+        "micro-kernel-scheduler"
+      ]
+    },
+    {
+      "id": "proj-005",
+      "slug": "micro-kernel-scheduler",
+      "title": "Capability-Based Microkernel Scheduler",
+      "shortDescription": "An experimental x86_64 priority preemptive scheduler enforcing hard memory isolation and capability security tokens.",
+      "fullDescription": "Researched operating system security models by authoring an educational bare-metal microkernel. Implements capability tokens for IPC endpoints, paging-enforced virtual memory isolation, and round-robin multi-level feedback queue scheduling.",
+      "category": "Operating Systems",
+      "tags": [
+        "Operating Systems",
+        "Kernel",
+        "x86_64",
+        "Assembly"
+      ],
+      "year": 2023,
+      "status": "Prototype",
+      "featured": false,
+      "role": "[INDEPENDENT RESEARCHER]",
+      "contribution": "[Wrote the 64-bit bootloader transition, implemented the GDT/IDT hardware interrupt handlers, and coded the context-switch assembly routines.]",
+      "technologies": [
+        "C",
+        "x86_64 Assembly",
+        "QEMU",
+        "Linker Scripts"
+      ],
+      "tools": [
+        "GCC",
+        "GDB",
+        "Make",
+        "Bochs"
+      ],
+      "github": "https://github.com/[YOUR-USERNAME]/microkernel-sched",
+      "demo": "",
+      "images": [
+        "/assets/placeholders/microkernel.svg"
+      ],
+      "documents": [],
+      "objectives": [
+        "Implement a fully preemptive timer interrupt context switch without memory corruption.",
+        "Enforce strict user-space capability permissions for IPC message dispatch.",
+        "Support basic dynamic memory allocation via physical frame allocators."
+      ],
+      "approach": "Zero-dependency bare-metal kernel booted via Multiboot2. Enforces separation between privileged kernel supervisor mode and unprivileged ring 3 user tasks.",
+      "implementation": "Assembly interrupt dispatch table preserves register state onto the process kernel stack. The scheduler inspects runnable queues and swaps CR3 page tables before executing `iretq`.",
+      "challenges": [
+        "Debugging silent triple-fault resets during paging initialization.",
+        "Stack misalignment triggering SSE exception faults in user-space code."
+      ],
+      "iterations": [
+        "Step 1: Real-mode 16-bit to 32-bit protected mode jump.",
+        "Step 2: 4-level paging setup and long-mode (64-bit) activation.",
+        "Step 3: Preemptive APIC timer scheduler with 4 priority bands."
+      ],
+      "results": "Demonstrated stable preemption across 16 concurrent user tasks running isolated memory loops in QEMU.",
+      "lessonsLearned": "Hardware context switching requires meticulous ABI compliance; stack pointer alignment bugs can manifest as seemingly random CPU exceptions.",
+      "relatedProjects": [
+        "distributed-consensus-simulator"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-001",
+      "role": "[GRADUATE RESEARCH ASSISTANT]",
+      "organization": "[DEPARTMENT OF COMPUTER SCIENCE, UNIVERSITY NAME]",
+      "period": "2024 — Present",
+      "location": "[City, Country]",
+      "type": "Academic",
+      "description": "Conducting experimental investigations into distributed storage reliability, consensus optimization, and high-performance I/O pipelines.",
+      "highlights": [
+        "Authored automated verification harness isolating edge cases in asynchronous consensus protocols.",
+        "Collaborated on grant proposals and technical papers covering storage-tiering efficiency.",
+        "Mentored undergraduate researchers in systems programming, benchmarking, and debugging."
+      ]
+    },
+    {
+      "id": "exp-002",
+      "role": "[SOFTWARE ENGINEERING INTERN (SYSTEMS)]",
+      "organization": "[RESEARCH LAB / TECH COMPANY NAME]",
+      "period": "Summer 2024",
+      "location": "[City, Country]",
+      "type": "Professional",
+      "description": "Contributed to core infrastructure services, telemetry ingestion pipelines, and observability tooling.",
+      "highlights": [
+        "Optimized log indexing throughput by 24% through memory-mapped I/O refactoring.",
+        "Constructed CI benchmark regression gates preventing performance degradation on main branch.",
+        "Authored comprehensive internal architecture documentation and runbooks."
+      ]
+    },
+    {
+      "id": "exp-003",
+      "role": "[UNDERGRADUATE TEACHING ASSISTANT]",
+      "organization": "[UNIVERSITY NAME]",
+      "period": "2023 — 2024",
+      "location": "[City, Country]",
+      "type": "Academic",
+      "description": "Guided 60+ students through computer systems, concurrency, memory management, and Unix environment mechanics.",
+      "highlights": [
+        "Conducted weekly lab office hours and code debugging clinics.",
+        "Designed automated unit test grading suites for assignment verification."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-001",
+      "degree": "[MASTER OF SCIENCE IN COMPUTER SCIENCE]",
+      "institution": "[UNIVERSITY NAME]",
+      "period": "2024 — Expected 2026",
+      "location": "[City, Country]",
+      "focus": "Distributed Systems, Operating Systems & Storage Architectures",
+      "honors": "[Graduate Research Fellowship / Academic Distinction]"
+    },
+    {
+      "id": "edu-002",
+      "degree": "[BACHELOR OF SCIENCE IN COMPUTER SCIENCE / COMPUTER ENGINEERING]",
+      "institution": "[UNIVERSITY NAME]",
+      "period": "2020 — 2024",
+      "location": "[City, Country]",
+      "focus": "Core Computer Systems, Algorithms, Computer Architecture",
+      "honors": "[Dean's List / Magna Cum Laude / Honors Capstone]"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "[PROFESSIONAL CERTIFICATION TITLE]",
+      "issuer": "[ISSUING BODY / INSTITUTION]",
+      "year": 2024,
+      "credentialId": "[CREDENTIAL-ID-0000]"
+    }
+  ],
+  "contact": {
+    "heading": "Get In Touch",
+    "note": "Open for research discussions, academic reviews, and systems engineering opportunities.",
+    "email": "[your.email@university.edu]",
+    "responseExpectation": "Typically responds within 1–2 business days."
+  }
+}
