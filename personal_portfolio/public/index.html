@@ -3,31 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[YOUR NAME] — Academic &amp; Professional Portfolio</title>
-  <meta name="description" content="Personal academic and systems engineering portfolio. Minimal interface, maximum clarity, strong evidence.">
+  <title>Jethro Navarro — Developer Portfolio</title>
+  <meta name="description" content="Personal software and systems developer portfolio. Minimal interface, maximum clarity.">
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/theme.js"></script>
 </head>
 <body>
-  <!-- Accessibility Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Site Navigation -->
+  <!-- Site Header -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <div class="logo-identity">
-        <a href="/" class="logo-name" id="header-name">[YOUR NAME]</a>
-        <span class="logo-status" id="header-status">Research &amp; Systems</span>
+        <a href="/" class="logo-name" id="header-name">Jethro Navarro</a>
+        <span class="logo-status" id="header-status">Developer</span>
       </div>
 
       <nav class="nav-container" aria-label="Main Navigation">
         <ul class="nav-links">
-          <li><a href="#projects">Work &amp; Evidence</a></li>
-          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#capabilities">Skills</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#education">Education</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="/cv" class="nav-cv-link" style="font-weight: 600; color: var(--accent);">Printable CV</a></li>
+          <li><a href="/cv" class="nav-cv-link" style="font-weight: 600; color: var(--accent);">Resume / CV</a></li>
         </ul>
       </nav>
 
@@ -43,11 +42,10 @@
     <!-- Hero Section -->
     <section class="hero-section" aria-labelledby="hero-name">
       <div class="container hero-content">
-        <div class="hero-pretitle">Academic &amp; Technical Portfolio</div>
-        <h1 class="hero-title" id="hero-name">[YOUR NAME]</h1>
-        <div class="hero-identity" id="hero-identity">[YOUR ACADEMIC / PROFESSIONAL IDENTITY]</div>
+        <h1 class="hero-title" id="hero-name">Jethro Navarro</h1>
+        <div class="hero-identity" id="hero-identity">Software &amp; Systems Developer</div>
         <p class="hero-intro" id="hero-intro">
-          [SHORT INTRODUCTION: Outlining research foundations, core engineering focus, and empirical contributions.]
+          Developer focused on backend systems, distributed tools, and practical software engineering.
         </p>
 
         <div class="hero-meta" id="hero-meta">
@@ -55,57 +53,51 @@
         </div>
 
         <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">Investigate Projects</a>
-          <a href="/cv" class="btn btn-outline">Review Printable CV</a>
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="/cv" class="btn btn-outline">Resume / CV</a>
         </div>
 
         <!-- Restrained WebGL Experiment Prototype -->
-        <div style="margin-top: 32px;">
-          <button id="webgl-toggle" class="pill" style="font-size: 0.8rem; margin-bottom: 8px;">
-            View 3D Cluster Topology (Prototype)
+        <div style="margin-top: 28px;">
+          <button id="webgl-toggle" class="pill" style="font-size: 0.78rem;">
+            3D Topology (Prototype)
           </button>
-          <div id="webgl-box" class="webgl-container" style="display: none;">
+          <div id="webgl-box" class="webgl-container" style="display: none; margin-top: 12px;">
             <canvas id="hero-webgl-canvas" class="webgl-canvas"></canvas>
             <div id="webgl-fallback" style="display:none; padding: 20px; font-family: var(--font-mono); font-size: 0.85rem;"></div>
-            <div class="webgl-overlay">WebGL Wireframe Prototype · Evaluated &amp; Fallback Ready</div>
+            <div class="webgl-overlay">WebGL Wireframe Prototype</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Selected Projects & Evidence Section -->
+    <!-- Selected Projects Section -->
     <section id="projects" class="section" aria-labelledby="projects-heading">
       <div class="container">
         <div class="section-header">
-          <div>
-            <h2 id="projects-heading">Technical Case Studies &amp; Research Work</h2>
-            <p class="section-subtitle">Data-driven evidence layer with explicit role vs. contribution declarations.</p>
-          </div>
+          <h2 id="projects-heading">Projects</h2>
         </div>
 
-        <!-- Filter & Search Panel -->
+        <!-- Filter & Search Bar -->
         <div class="filter-bar" role="search" aria-label="Filter Projects">
-          <input type="search" id="project-search" class="search-input" placeholder="Search by keyword, tag, or technology..." aria-label="Search projects">
+          <input type="search" id="project-search" class="search-input" placeholder="Search projects by keyword, tool, or tag..." aria-label="Search projects">
           <div class="filter-pills" id="filter-pills" role="group" aria-label="Filter by project category">
             <!-- Populated by main.js -->
           </div>
         </div>
 
-        <!-- Grid of Quick-Scan Cards -->
+        <!-- Grid of Concise Cards -->
         <div class="projects-grid" id="projects-grid">
           <!-- Populated dynamically by main.js -->
         </div>
       </div>
     </section>
 
-    <!-- Capabilities Section -->
+    <!-- Skills & Capabilities Section -->
     <section id="capabilities" class="section" aria-labelledby="capabilities-heading">
       <div class="container">
         <div class="section-header">
-          <div>
-            <h2 id="capabilities-heading">Technical Capabilities &amp; Methodologies</h2>
-            <p class="section-subtitle">System architectures, engineering competencies, and research evaluation methods.</p>
-          </div>
+          <h2 id="capabilities-heading">Skills &amp; Tech Stack</h2>
         </div>
 
         <div class="capabilities-grid" id="capabilities-grid">
@@ -118,10 +110,7 @@
     <section id="experience" class="section" aria-labelledby="experience-heading">
       <div class="container">
         <div class="section-header">
-          <div>
-            <h2 id="experience-heading">Professional &amp; Academic Experience</h2>
-            <p class="section-subtitle">Chronological record of research appointments, engineering roles, and instruction.</p>
-          </div>
+          <h2 id="experience-heading">Experience</h2>
         </div>
 
         <div class="timeline" id="experience-timeline">
@@ -134,10 +123,7 @@
     <section id="education" class="section" aria-labelledby="education-heading">
       <div class="container">
         <div class="section-header">
-          <div>
-            <h2 id="education-heading">Academic Foundations &amp; Education</h2>
-            <p class="section-subtitle">Formal degrees, research concentrations, and academic honors.</p>
-          </div>
+          <h2 id="education-heading">Education</h2>
         </div>
 
         <div class="timeline" id="education-timeline">
@@ -146,27 +132,21 @@
       </div>
     </section>
 
-    <!-- Contact & Inquiries Section -->
+    <!-- Contact Section -->
     <section id="contact" class="section" aria-labelledby="contact-heading" style="border-bottom: none;">
       <div class="container">
         <div class="section-header">
-          <div>
-            <h2 id="contact-heading">Direct Inquiries &amp; Academic Contact</h2>
-            <p class="section-subtitle" id="contact-note">Open for research collaboration, academic review, and technical discussions.</p>
-          </div>
+          <h2 id="contact-heading">Contact</h2>
         </div>
 
-        <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px; max-width: 640px;">
-          <p style="margin-bottom: 16px; font-size: 1.05rem;">
-            Direct electronic mail is the preferred point of contact:
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px 28px; max-width: 540px;">
+          <p id="contact-note" style="margin-bottom: 14px; font-size: 0.98rem; color: var(--text-secondary);">
+            Open to engineering opportunities and technical collaboration.
           </p>
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <a href="mailto:[your.email@university.edu]" id="contact-email" style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 600;">[your.email@university.edu]</a>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:labistejethro@gmail.com" id="contact-email" style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600;">labistejethro@gmail.com</a>
           </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">
-            Note: This portfolio operates strictly locally with zero third-party form processors. Messages sent via email are delivered directly to the inbox without telemetry.
-          </p>
         </div>
       </div>
     </section>
@@ -176,14 +156,14 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div>
-        <span>Localhost Academic &amp; Professional Portfolio · 127.0.0.1</span>
-        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Zero CDNs · Offline Verified · Hard Security Boundary</span>
+        <span>Jethro Navarro · Portfolio</span>
       </div>
 
       <ul class="footer-links">
-        <li><a href="#main-content">Back to Top</a></li>
-        <li><a href="/cv">Printable CV</a></li>
-        <li><a href="/admin">CMS Console</a></li>
+        <li><a href="#main-content">Top</a></li>
+        <li><a href="/cv">Resume</a></li>
+        <li><a href="https://github.com/soggycoding" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="/admin">CMS</a></li>
       </ul>
     </div>
   </footer>

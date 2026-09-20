@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curriculum Vitae — [YOUR NAME]</title>
-  <meta name="description" content="Printable Curriculum Vitae and technical resume generated from unified portfolio data.">
+  <title>Resume / CV — Jethro Navarro</title>
+  <meta name="description" content="Printable Resume / CV generated from portfolio data.">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/cv.css">
   <script src="/js/theme.js"></script>
 </head>
 <body class="cv-body">
-  <!-- On-Screen Action Toolbar -->
+  <!-- Action Bar -->
   <div class="cv-action-bar" role="toolbar" aria-label="CV Controls">
     <a href="/" class="btn btn-outline btn-sm">← Back to Portfolio</a>
     
@@ -23,17 +23,17 @@
     </div>
   </div>
 
-  <!-- Printable Paper Document Container -->
+  <!-- Document Paper Container -->
   <main class="cv-paper" id="cv-paper" role="main">
     <div id="cv-loading" style="text-align: center; padding: 60px; color: var(--cv-muted); font-family: monospace;">
-      Loading unified CV dataset from portfolio.json...
+      Loading resume...
     </div>
 
     <div id="cv-content" style="display: none;">
       <!-- Header -->
       <header class="cv-header">
-        <h1 class="cv-name" id="cv-name">[YOUR NAME]</h1>
-        <div class="cv-identity" id="cv-identity">[YOUR ACADEMIC / PROFESSIONAL IDENTITY]</div>
+        <h1 class="cv-name" id="cv-name">Jethro Navarro</h1>
+        <div class="cv-identity" id="cv-identity">Software &amp; Systems Developer</div>
         <div class="cv-contact-row" id="cv-contact">
           <!-- Populated dynamically -->
         </div>
@@ -41,8 +41,32 @@
 
       <!-- Summary -->
       <section class="cv-section" id="cv-sec-summary">
-        <h2 class="cv-section-title">Research Summary &amp; Focus</h2>
+        <h2 class="cv-section-title">Summary</h2>
         <p id="cv-summary" class="cv-item-desc" style="color: var(--cv-text); font-size: 0.92rem; line-height: 1.55;"></p>
+      </section>
+
+      <!-- Experience -->
+      <section class="cv-section" id="cv-sec-experience">
+        <h2 class="cv-section-title">Experience</h2>
+        <div id="cv-experience-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="cv-section" id="cv-sec-projects">
+        <h2 class="cv-section-title">Projects</h2>
+        <div id="cv-projects-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="cv-section" id="cv-sec-capabilities">
+        <h2 class="cv-section-title">Skills &amp; Technologies</h2>
+        <div class="cv-skills-grid" id="cv-skills-grid">
+          <!-- Populated dynamically -->
+        </div>
       </section>
 
       <!-- Education -->
@@ -53,33 +77,9 @@
         </div>
       </section>
 
-      <!-- Experience -->
-      <section class="cv-section" id="cv-sec-experience">
-        <h2 class="cv-section-title">Research &amp; Engineering Experience</h2>
-        <div id="cv-experience-list">
-          <!-- Populated dynamically -->
-        </div>
-      </section>
-
-      <!-- Selected Projects & Evidence -->
-      <section class="cv-section" id="cv-sec-projects">
-        <h2 class="cv-section-title">Selected Projects &amp; Individual Contributions</h2>
-        <div id="cv-projects-list">
-          <!-- Populated dynamically -->
-        </div>
-      </section>
-
-      <!-- Capabilities -->
-      <section class="cv-section" id="cv-sec-capabilities">
-        <h2 class="cv-section-title">Technical Capabilities &amp; Methodologies</h2>
-        <div class="cv-skills-grid" id="cv-skills-grid">
-          <!-- Populated dynamically -->
-        </div>
-      </section>
-
       <!-- Certifications -->
       <section class="cv-section" id="cv-sec-certs">
-        <h2 class="cv-section-title">Certifications &amp; Accreditations</h2>
+        <h2 class="cv-section-title">Certifications</h2>
         <div id="cv-certs-list">
           <!-- Populated dynamically -->
         </div>
@@ -97,10 +97,10 @@
         document.getElementById('cv-loading').style.display = 'none';
         document.getElementById('cv-content').style.display = 'block';
         if (data.profile && data.profile.name) {
-          document.title = `Curriculum Vitae — ${data.profile.name}`;
+          document.title = `Resume — ${data.profile.name}`;
         }
       } catch (err) {
-        document.getElementById('cv-loading').innerHTML = `<p style="color: #ef4444;">Failed to load CV dataset: ${err.message}</p>`;
+        document.getElementById('cv-loading').innerHTML = `<p style="color: #ef4444;">Failed to load resume data: ${err.message}</p>`;
       }
     }
 
@@ -108,41 +108,21 @@
       const p = data.profile || {};
 
       // Header
-      document.getElementById('cv-name').textContent = p.name || '[YOUR NAME]';
-      document.getElementById('cv-identity').textContent = p.identity || '[YOUR ACADEMIC / PROFESSIONAL IDENTITY]';
+      document.getElementById('cv-name').textContent = p.name || 'Jethro Navarro';
+      document.getElementById('cv-identity').textContent = p.identity || 'Software & Systems Developer';
 
       const contactItems = [];
       if (p.email) contactItems.push(`<span>${escapeHtml(p.email)}</span>`);
       if (p.location) contactItems.push(`<span>${escapeHtml(p.location)}</span>`);
-      if (p.links && p.links.github) contactItems.push(`<span>${escapeHtml(p.links.github)}</span>`);
-      if (p.links && p.links.scholar) contactItems.push(`<span>Google Scholar</span>`);
+      if (p.links && p.links.github) contactItems.push(`<span>github.com/soggycoding</span>`);
       document.getElementById('cv-contact').innerHTML = contactItems.join(' · ');
 
       // Summary
       const summaryElem = document.getElementById('cv-summary');
-      if (p.fullBio || p.shortIntro) {
-        summaryElem.textContent = p.fullBio || p.shortIntro;
+      if (p.shortIntro || p.fullBio) {
+        summaryElem.textContent = p.shortIntro || p.fullBio;
       } else {
         document.getElementById('cv-sec-summary').style.display = 'none';
-      }
-
-      // Education
-      const eduList = document.getElementById('cv-education-list');
-      const education = data.education || [];
-      if (education.length) {
-        eduList.innerHTML = education.map(edu => `
-          <div class="cv-item">
-            <div class="cv-item-header">
-              <span class="cv-item-title">${escapeHtml(edu.degree)}</span>
-              <span class="cv-item-meta">${escapeHtml(edu.period)}</span>
-            </div>
-            <div class="cv-item-sub">${escapeHtml(edu.institution)} · ${escapeHtml(edu.location || '')}</div>
-            ${edu.focus ? `<div class="cv-item-desc"><strong>Focus:</strong> ${escapeHtml(edu.focus)}</div>` : ''}
-            ${edu.honors ? `<div class="cv-item-desc" style="color: #0369a1;"><strong>Honors:</strong> ${escapeHtml(edu.honors)}</div>` : ''}
-          </div>
-        `).join('');
-      } else {
-        document.getElementById('cv-sec-education').style.display = 'none';
       }
 
       // Experience
@@ -178,8 +158,8 @@
               <span class="cv-item-title">${escapeHtml(proj.title)}</span>
               <span class="cv-item-meta">${proj.year || ''}</span>
             </div>
-            <div class="cv-item-sub">Role: ${escapeHtml(proj.role || 'Contributor')} | Stack: ${(proj.technologies || []).join(', ')}</div>
-            <p class="cv-item-desc" style="margin-bottom: 2px;">${escapeHtml(proj.shortDescription || '')}</p>
+            <div class="cv-item-sub">${escapeHtml(proj.role || 'Developer')} · ${(proj.technologies || []).join(', ')}</div>
+            <p class="cv-item-desc">${escapeHtml(proj.shortDescription || '')}</p>
             ${proj.contribution ? `
               <p class="cv-item-desc" style="font-size: 0.84rem; color: #0284c7;">
                 <strong>Contribution:</strong> ${escapeHtml(proj.contribution)}
@@ -191,7 +171,7 @@
         document.getElementById('cv-sec-projects').style.display = 'none';
       }
 
-      // Capabilities
+      // Skills
       const capGrid = document.getElementById('cv-skills-grid');
       const caps = (data.profile && data.profile.capabilities) || [];
       if (caps.length) {
@@ -203,6 +183,25 @@
         `).join('');
       } else {
         document.getElementById('cv-sec-capabilities').style.display = 'none';
+      }
+
+      // Education
+      const eduList = document.getElementById('cv-education-list');
+      const education = data.education || [];
+      if (education.length) {
+        eduList.innerHTML = education.map(edu => `
+          <div class="cv-item">
+            <div class="cv-item-header">
+              <span class="cv-item-title">${escapeHtml(edu.degree)}</span>
+              <span class="cv-item-meta">${escapeHtml(edu.period)}</span>
+            </div>
+            <div class="cv-item-sub">${escapeHtml(edu.institution)} · ${escapeHtml(edu.location || '')}</div>
+            ${edu.focus ? `<div class="cv-item-desc"><strong>Focus:</strong> ${escapeHtml(edu.focus)}</div>` : ''}
+            ${edu.honors ? `<div class="cv-item-desc" style="color: #0369a1;"><strong>Honors:</strong> ${escapeHtml(edu.honors)}</div>` : ''}
+          </div>
+        `).join('');
+      } else {
+        document.getElementById('cv-sec-education').style.display = 'none';
       }
 
       // Certifications

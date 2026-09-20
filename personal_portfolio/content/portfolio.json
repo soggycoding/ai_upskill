@@ -1,48 +1,49 @@
 {
   "profile": {
     "name": "Jethro Navarro",
-    "identity": "Tambay",
-    "tagline": "Junior Dev",
-    "shortIntro": "[SHORT INTRODUCTION: 2-3 sentences outlining your primary research domain, technical focus, and current academic or engineering goals.]",
-    "fullBio": "[FULL BIO: Detailed background covering academic foundations, engineering philosophy, and long-term research trajectories. Replace this with your actual academic summary.]",
+    "identity": "Software & Systems Developer",
+    "tagline": "Software Engineer",
+    "shortIntro": "Software developer focused on backend APIs, relational schemas, and zero-dependency systems.",
+    "fullBio": "Building production-grade FastAPI backends, normalized SQLite/SQLAlchemy schemas, and zero-dependency Node.js tools.",
     "email": "labistejethro@gmail.com",
-    "location": "Rizal",
-    "status": "Student",
+    "location": "Rizal, Philippines",
+    "status": "Available for Opportunities",
     "links": {
       "github": "https://github.com/soggycoding",
-      "scholar": "-",
-      "linkedin": "-",
-      "orcid": "-"
+      "scholar": "",
+      "linkedin": "",
+      "orcid": ""
     },
     "capabilities": [
       {
-        "category": "Systems & Architecture",
+        "category": "Languages",
         "items": [
-          "Distributed Protocols",
-          "Concurrency & Threading",
-          "Memory Optimization",
-          "Cache Hierarchies",
-          "Fault Tolerance"
-        ]
-      },
-      {
-        "category": "Languages & Core Tools",
-        "items": [
-          "C / C++",
-          "Rust",
           "Python",
-          "Go",
-          "POSIX / Linux",
-          "SQL"
+          "JavaScript (ES6+)",
+          "SQL",
+          "C / C++",
+          "HTML5 / CSS3"
         ]
       },
       {
-        "category": "Research & Evaluation",
+        "category": "Frameworks & Backends",
         "items": [
-          "Benchmark Harness Design",
-          "Trace Analysis",
-          "Statistical Hypothesis Testing",
-          "Technical Paper Authoring"
+          "FastAPI",
+          "Node.js (Native HTTP)",
+          "SQLAlchemy 2.0",
+          "Pydantic v2",
+          "SQLite",
+          "Uvicorn"
+        ]
+      },
+      {
+        "category": "Engineering Practices",
+        "items": [
+          "Relational Schema Design",
+          "Adversarial Unit Testing",
+          "Atomic File Persistence",
+          "Security Perimeter Design",
+          "Git Workflow"
         ]
       }
     ]
@@ -50,372 +51,291 @@
   "projects": [
     {
       "id": "proj-001",
-      "slug": "distributed-consensus-simulator",
-      "title": "Deterministic Raft Consensus Simulator",
-      "shortDescription": "A discrete-event simulation engine for validating partition tolerance and leader election under asynchronous network jitter.",
-      "fullDescription": "Engineered an event-driven framework to model network partitions, message drops, and clock drift in Raft clusters. Designed deterministic replay capability to isolate Byzantine anomalies and race conditions in leader election cycles.",
-      "category": "Distributed Systems",
+      "slug": "playlist-rest-api",
+      "title": "Normalized Playlist REST API",
+      "shortDescription": "FastAPI & SQLAlchemy 2.0 service managing many-to-many playlist catalogs without duplicate song entities.",
+      "fullDescription": "Production-grade RESTful service with Pydantic v2 validation, SQLite foreign key enforcement, and cascade rules ensuring catalog integrity.",
+      "category": "Backend & APIs",
       "tags": [
-        "Distributed Systems",
-        "Raft",
-        "Fault Tolerance",
-        "Simulation"
+        "FastAPI",
+        "Python",
+        "SQLAlchemy",
+        "SQLite",
+        "REST API"
       ],
-      "year": 2025,
+      "year": 2024,
       "status": "Completed",
       "featured": true,
-      "role": "[LEAD SYSTEM ARCHITECT / RESEARCH ASSISTANT]",
-      "contribution": "[Formulated the state machine replication logic, implemented the discrete-event simulation queue, and constructed the network partition chaos harness.]",
+      "role": "Backend Developer",
+      "contribution": "Architected normalized many-to-many junction schema, built CRUD endpoints in FastAPI, and wrote comprehensive pytest suites with HTTPX.",
       "technologies": [
-        "Rust",
-        "Tokio",
-        "Tracing",
-        "GraphViz"
+        "Python",
+        "FastAPI",
+        "SQLAlchemy 2.0",
+        "Pydantic v2",
+        "SQLite"
       ],
       "tools": [
-        "Cargo",
-        "GDB",
-        "Valgrind",
-        "Docker"
+        "Uvicorn",
+        "Pytest",
+        "HTTPX",
+        "Git"
       ],
-      "github": "https://github.com/[YOUR-USERNAME]/raft-consensus-sim",
-      "demo": "http://127.0.0.1:3000/demos/raft-sim",
+      "github": "https://github.com/soggycoding/ai_upskill/tree/main/playlist_api",
+      "demo": "",
       "images": [
-        "/assets/placeholders/distributed-consensus.svg"
+        "/assets/placeholders/playlist-api.svg"
       ],
-      "documents": [
-        "/assets/placeholders/raft_technical_report.pdf"
-      ],
+      "documents": [],
       "objectives": [
-        "Verify Raft safety invariants across asymmetric multi-node network partitions.",
-        "Enable 100% deterministic replay of race conditions via seedable pseudo-random event scheduling.",
-        "Benchmark election timeout convergence under simulated 10ms–500ms packet latency."
+        "Support cross-playlist song sharing without duplicating song records.",
+        "Enforce strict cascading deletes for playlist entries while preserving song entities.",
+        "Ensure 100% automated test coverage across edge cases and foreign key constraints."
       ],
-      "approach": "Adopted a discrete-event clock decoupled from wall-clock time. Every RPC, socket timeout, and disk I/O step is modeled as an immutable event tuple dispatched through a priority queue.",
-      "implementation": "Core consensus logic implemented as a pure state transition function `(State, Event) -> (NewState, Actions)`. Side-effects (network emissions, timer resets) are returned explicitly as actions, allowing test harnesses to inject arbitrary partitions without mocking sockets.",
+      "approach": "Relational schema design with an explicit PlaylistSong junction table, composite indexing, and SQLite foreign key PRAGMA enforcement.",
+      "implementation": "FastAPI dependency-injected database sessions, Pydantic DTOs for request/response serialization, and encapsulated CRUD query functions.",
       "challenges": [
-        "Split-vote loops occurring when election timers clustered within narrow jitter bands.",
-        "State machine divergence during uncommitted log truncation after partition healing."
+        "SQLite foreign key enforcement requiring explicit PRAGMA foreign_keys=ON listener configuration.",
+        "Preventing duplicate song additions to the same playlist via composite unique constraints."
       ],
       "iterations": [
-        "v0.1: Native multi-threaded simulation with POSIX timers (non-deterministic, difficult to reproduce).",
-        "v0.2: Virtual tick-based scheduler using priority queues (eliminated flaky tests).",
-        "v1.0: Added automated linearizability checker verifying client read/write log consistency."
+        "v1: Basic JSON file persistence.",
+        "v2: Relational SQLite migration with SQLAlchemy ORM models.",
+        "v3: Comprehensive pytest test client suite with isolated test databases."
       ],
-      "results": "Simulated 100,000 partition scenarios across 5-node clusters with zero linearizability violations. Replay fidelity achieved exact bit-for-bit event reproduction.",
-      "lessonsLearned": "Pure state transitions separate algorithmic correctness from asynchronous execution mechanics, radically reducing concurrency bugs.",
+      "results": "100% test pass rate across all CRUD suites with sub-millisecond local endpoint response times and complete data normalization.",
+      "lessonsLearned": "Explicit relational junction models ensure scalable data deduplication without complex ORM magic.",
       "relatedProjects": [
-        "high-throughput-log-indexer",
-        "micro-kernel-scheduler"
+        "ops-tracker-system",
+        "personal-portfolio-cms"
       ]
     },
     {
       "id": "proj-002",
-      "slug": "high-throughput-log-indexer",
-      "title": "Zero-Copy LSM Log Indexer",
-      "shortDescription": "A lightweight Log-Structured Merge (LSM) storage engine optimized for memory-bounded telemetry ingestion.",
-      "fullDescription": "Designed a specialized embedded log storage engine utilizing memory-mapped append logs, block-level Bloom filters, and tiered compaction to sustain high write throughput under tight RAM constraints.",
-      "category": "Storage & Databases",
+      "slug": "ops-tracker-system",
+      "title": "OpsTracker: Attendance & Inventory System",
+      "shortDescription": "Full-stack operations hub integrating workforce attendance tracking with real-time warehouse inventory management.",
+      "fullDescription": "Local-first enterprise operations dashboard combining employee punch kiosk, presence boards, and inventory replenishment with stock underflow protection.",
+      "category": "Full-Stack Applications",
       "tags": [
-        "Storage Engine",
-        "LSM-Tree",
-        "Bloom Filter",
-        "C++"
+        "FastAPI",
+        "Python",
+        "JavaScript",
+        "SQLite",
+        "Dashboard"
       ],
       "year": 2024,
       "status": "Completed",
       "featured": true,
-      "role": "[BACKEND SYSTEMS ENGINEER]",
-      "contribution": "[Implemented the SkipList memtable, designed the SSTable binary layout with crc32 verification, and optimized the multi-threaded compaction worker.]",
+      "role": "Full-Stack Developer",
+      "contribution": "Built FastAPI backend routes, designed SQLite transactional schema, and engineered modern vanilla ES6+ reactive dashboard UI.",
       "technologies": [
-        "C++20",
-        "POSIX mmap",
-        "CMake",
-        "Google Benchmark"
+        "Python",
+        "FastAPI",
+        "SQLite",
+        "JavaScript (ES6+)",
+        "CSS3"
       ],
       "tools": [
-        "Clang",
-        "Perf",
-        "AddressSanitizer",
-        "FlameGraph"
+        "Uvicorn",
+        "Git",
+        "VS Code"
       ],
-      "github": "https://github.com/[YOUR-USERNAME]/lsm-log-indexer",
+      "github": "https://github.com/soggycoding/ai_upskill/tree/main/ops_tracker",
       "demo": "",
       "images": [
-        "/assets/placeholders/lsm-indexer.svg"
+        "/assets/placeholders/ops-tracker.svg"
       ],
       "documents": [],
       "objectives": [
-        "Achieve sustained write throughput exceeding 150k ops/sec on standard NVMe drives.",
-        "Bound memory footprint strictly within 256MB using arena allocators and tiered flushes.",
-        "Prevent write-stall spikes during background SSTable compaction cycles."
+        "Provide 1-click check-in/out with automated shift duration calculation.",
+        "Prevent warehouse inventory underflow with atomic transactional balance validation.",
+        "Generate filterable historical timesheets with 1-click CSV export."
       ],
-      "approach": "Employed Log-Structured Merge architecture with immutable memtables flushed sequentially. Reads pass through sparse index blocks and bit-vector Bloom filters to minimize disk seeks.",
-      "implementation": "Engineered lock-free SkipList memtable utilizing atomic pointer CAS swaps. Binary SSTable files are structured into 4KB data blocks, index blocks, and 10-bit/key Bloom filter footers with CRC32 integrity verification.",
+      "approach": "Unified dual-domain architecture coupling workforce telemetry with real-time warehouse logistics in an offline-first environment.",
+      "implementation": "RESTful FastAPI service with structured SQLite persistence, paired with a vanilla ES6 modular frontend using CSS custom properties.",
       "challenges": [
-        "Compaction debt causing read amplification during prolonged burst ingestion.",
-        "Disk I/O contention between concurrent flushes and client write logs."
+        "Preventing negative stock levels during concurrent rapid replenishment and dispatch.",
+        "Accurate shift duration and late arrival detection based on dynamic work schedules."
       ],
       "iterations": [
-        "v1: Single background thread compaction (caused noticeable throughput drops).",
-        "v2: Dual-priority tiered compaction worker with rate-limited bandwidth throttling."
+        "v1: Separate attendance and inventory CLI scripts.",
+        "v2: Unified FastAPI backend with unified database transactions.",
+        "v3: Executive web dashboard with real-time KPI cards and CSV export."
       ],
-      "results": "Sustained 185,000 write ops/sec under 180MB RSS usage, maintaining p99 write latency under 1.2ms.",
-      "lessonsLearned": "Predictable memory allocation strategies and arena pools prevent allocator fragmentation in long-running storage daemons.",
+      "results": "Zero stock underflow errors, instant 1-click punch processing, and seamless CSV audit exports.",
+      "lessonsLearned": "Atomic server-side balance validation is essential before committing stock dispatch deltas.",
       "relatedProjects": [
-        "distributed-consensus-simulator"
+        "playlist-rest-api",
+        "personal-portfolio-cms"
       ]
     },
     {
       "id": "proj-003",
-      "slug": "neural-audio-denoiser",
-      "title": "Low-Latency Recurrent Audio Denoiser",
-      "shortDescription": "A causal hybrid CNN-GRU architecture for real-time speech enhancement on resource-constrained edge hardware.",
-      "fullDescription": "Developed a lightweight neural speech enhancement pipeline processing 16kHz audio in real time with under 15ms algorithmic latency. Evaluated across non-stationary background noise profiles.",
-      "category": "Applied Machine Learning",
+      "slug": "learning-python-suite",
+      "title": "Foundational Python & Algorithmic Practice",
+      "shortDescription": "Structured software engineering repository focusing on data structures, algorithmic decomposition, and spaced recall protocols.",
+      "fullDescription": "Systematic engineering repository covering Python fundamentals, time/space complexity analysis, and adversarial edge-case testing.",
+      "category": "Algorithms & Systems",
       "tags": [
-        "Machine Learning",
-        "Signal Processing",
-        "PyTorch",
-        "ONNX"
+        "Python",
+        "Algorithms",
+        "Data Structures",
+        "Testing"
       ],
       "year": 2024,
-      "status": "Research",
-      "featured": true,
-      "role": "[RESEARCH ASSISTANT / ML DEVELOPER]",
-      "contribution": "[Engineered dataset preprocessing, spectrogram STFT pipelines, implemented the causal GRU model, and quantized the network to INT8 for edge deployment.]",
-      "technologies": [
-        "Python",
-        "PyTorch",
-        "NumPy",
-        "ONNX Runtime",
-        "C++"
-      ],
-      "tools": [
-        "Librosa",
-        "TensorBoard",
-        "Weights & Biases",
-        "FFmpeg"
-      ],
-      "github": "https://github.com/[YOUR-USERNAME]/neural-denoiser",
-      "demo": "http://127.0.0.1:3000/demos/denoiser",
-      "images": [
-        "/assets/placeholders/neural-denoiser.svg"
-      ],
-      "documents": [
-        "/assets/placeholders/denoiser_paper_draft.pdf"
-      ],
-      "objectives": [
-        "Deliver SNR improvement > 12 dB without introducing speech degradation.",
-        "Enforce strict causal processing with zero future-frame lookahead.",
-        "Execute inference within 8ms per 20ms audio frame on standard edge CPU."
-      ],
-      "approach": "Operated in the short-time Fourier transform (STFT) domain using complex spectral mapping. Emphasized causal convolutions and recurrent memory cells to enforce real-time causality.",
-      "implementation": "Designed a U-Net encoder-decoder backbone paired with dual-layer bidirectional GRUs replaced by forward-only masked GRU cells. Applied perceptual loss (PESQ surrogate) combined with multi-resolution STFT loss.",
-      "challenges": [
-        "Musical noise artifacts in high-frequency spectral bins under non-stationary noise.",
-        "Floating-point quantization accuracy degradation during 8-bit dynamic quantization."
-      ],
-      "iterations": [
-        "Baseline: Standard time-domain Conv-TasNet (high memory overhead).",
-        "Refined: Complex spectrogram masking with post-filter phase estimation."
-      ],
-      "results": "Achieved PESQ score of 3.12 (vs 2.15 noisy baseline) with 12.8ms total latency and 1.8M parameter count.",
-      "lessonsLearned": "Loss function formulation directly dictates perceptual quality; spectral magnitude loss alone produces significant speech smearing.",
-      "relatedProjects": []
-    },
-    {
-      "id": "proj-004",
-      "slug": "autonomous-rover-slam",
-      "title": "Visual-Inertial SLAM & Path Planner",
-      "shortDescription": "Monocular visual-inertial odometry and occupancy grid mapping for autonomous mobile robotics in GPS-denied environments.",
-      "fullDescription": "Constructed an integrated state estimation and graph-based SLAM system for terrestrial rovers. Combines Extended Kalman Filter sensor fusion with keyframe feature tracking and A* local trajectory generation.",
-      "category": "Robotics & Vision",
-      "tags": [
-        "Robotics",
-        "Computer Vision",
-        "SLAM",
-        "ROS2"
-      ],
-      "year": 2023,
       "status": "Completed",
       "featured": false,
-      "role": "[UNDERGRADUATE RESEARCHER]",
-      "contribution": "[Integrated IMU sensor driver fusion, implemented the loop-closure detection module via Bag of Visual Words, and tuned the local obstacle avoidance planner.]",
+      "role": "Software Engineer",
+      "contribution": "Implemented algorithmic challenges, authored adversarial edge-case test suites, and completed spaced memory recall verification.",
       "technologies": [
-        "C++",
-        "Python",
-        "OpenCV",
-        "ROS2",
-        "Eigen3"
+        "Python 3.12",
+        "Pytest"
       ],
       "tools": [
-        "RViz",
-        "Gazebo",
+        "Pytest",
         "Git",
-        "GTest"
+        "Markdown"
       ],
-      "github": "https://github.com/[YOUR-USERNAME]/rover-vi-slam",
+      "github": "https://github.com/soggycoding/Learning-Python",
       "demo": "",
       "images": [
-        "/assets/placeholders/rover-slam.svg"
+        "/assets/placeholders/learning-python.svg"
       ],
       "documents": [],
       "objectives": [
-        "Maintain drift rate below 1.5% of total traveled distance in indoor hallways.",
-        "Detect loop closures and perform pose-graph optimization within 100ms.",
-        "Navigate dynamic obstacle courses safely at 0.5 m/s."
+        "Master time and space Big-O complexity trade-offs across common data structures.",
+        "Enforce 3-point adversarial test suites (standard, boundary, trap cases).",
+        "Retain algorithmic problem-solving via batched spaced recall."
       ],
-      "approach": "Loosely-coupled visual-inertial fusion: ORB feature extraction tracks camera motion while 6-DOF IMU pre-integration constraints stabilize high-frequency rotational changes.",
-      "implementation": "ROS2 node architecture with separate threads for feature extraction, local mapping, and global pose graph optimization using g2o.",
+      "approach": "Adversarial test-driven development combined with 3-stage iterative learning (Baseline -> Alternative Exploration -> Pure Memory Recall).",
+      "implementation": "Structured Python modules with automated assertions, complexity documentation, and pure recall verification files.",
       "challenges": [
-        "Feature loss in low-texture environments such as blank walls.",
-        "Sudden lighting transitions causing false-positive loop closures."
+        "Edge cases in recursive and combinatorial algorithms.",
+        "Avoiding premature optimization while maintaining clean idiomatic code."
       ],
       "iterations": [
-        "v1: Pure visual odometry without IMU (suffered scale drift and failure during rapid turns).",
-        "v2: Added pre-integrated IMU factors and keyframe culling strategy."
+        "v1: Basic scripting solutions.",
+        "v2: Comprehensive unit test suites with boundary checking.",
+        "v3: Spaced recall challenge implementations with zero syntax references."
       ],
-      "results": "Successfully mapped a 400m indoor test course with 1.1% cumulative position drift and verified obstacle avoidance at 0.6 m/s.",
-      "lessonsLearned": "Sensor synchronization timestamps require microsecond hardware triggers; software timestamping creates fatal Kalman filter lag.",
+      "results": "Verified solutions across 50+ algorithmic scenarios with complete edge-case handling.",
+      "lessonsLearned": "Writing adversarial trap tests first forces disciplined edge-case architecture before code implementation.",
       "relatedProjects": [
-        "micro-kernel-scheduler"
+        "playlist-rest-api"
       ]
     },
     {
-      "id": "proj-005",
-      "slug": "micro-kernel-scheduler",
-      "title": "Capability-Based Microkernel Scheduler",
-      "shortDescription": "An experimental x86_64 priority preemptive scheduler enforcing hard memory isolation and capability security tokens.",
-      "fullDescription": "Researched operating system security models by authoring an educational bare-metal microkernel. Implements capability tokens for IPC endpoints, paging-enforced virtual memory isolation, and round-robin multi-level feedback queue scheduling.",
-      "category": "Operating Systems",
+      "id": "proj-004",
+      "slug": "personal-portfolio-cms",
+      "title": "Personal Portfolio & Local CMS Engine",
+      "shortDescription": "Native Node.js HTTP portfolio application with zero npm dependencies, atomic versioning, and diagnostic audit engine.",
+      "fullDescription": "Localhost-first developer portfolio and content management system featuring timing-safe SHA-256 session auth, strict traversal security boundaries, and automated health checks.",
+      "category": "Systems & Web Tools",
       "tags": [
-        "Operating Systems",
-        "Kernel",
-        "x86_64",
-        "Assembly"
+        "Node.js",
+        "JavaScript",
+        "Security",
+        "CMS",
+        "Zero-Dependency"
       ],
-      "year": 2023,
-      "status": "Prototype",
-      "featured": false,
-      "role": "[INDEPENDENT RESEARCHER]",
-      "contribution": "[Wrote the 64-bit bootloader transition, implemented the GDT/IDT hardware interrupt handlers, and coded the context-switch assembly routines.]",
+      "year": 2025,
+      "status": "Completed",
+      "featured": true,
+      "role": "Lead Architect",
+      "contribution": "Engineered native Node.js HTTP server, implemented timing-safe SHA-256 session auth, designed atomic snapshot storage, and built automated diagnostic engine.",
       "technologies": [
-        "C",
-        "x86_64 Assembly",
-        "QEMU",
-        "Linker Scripts"
+        "Node.js (Native HTTP)",
+        "JavaScript (ES6+)",
+        "CSS3",
+        "HTML5"
       ],
       "tools": [
-        "GCC",
-        "GDB",
-        "Make",
-        "Bochs"
+        "Node.js",
+        "Git",
+        "PowerShell"
       ],
-      "github": "https://github.com/[YOUR-USERNAME]/microkernel-sched",
+      "github": "https://github.com/soggycoding/ai_upskill/tree/main/personal_portfolio",
       "demo": "",
       "images": [
-        "/assets/placeholders/microkernel.svg"
+        "/assets/placeholders/personal-portfolio.svg"
       ],
       "documents": [],
       "objectives": [
-        "Implement a fully preemptive timer interrupt context switch without memory corruption.",
-        "Enforce strict user-space capability permissions for IPC message dispatch.",
-        "Support basic dynamic memory allocation via physical frame allocators."
+        "Zero external npm dependencies or CDN references for total offline reliability.",
+        "Enforce strict directory traversal and private file security boundaries.",
+        "Automate comprehensive health, link, asset, and schema diagnostics."
       ],
-      "approach": "Zero-dependency bare-metal kernel booted via Multiboot2. Enforces separation between privileged kernel supervisor mode and unprivileged ring 3 user tasks.",
-      "implementation": "Assembly interrupt dispatch table preserves register state onto the process kernel stack. The scheduler inspects runnable queues and swaps CR3 page tables before executing `iretq`.",
+      "approach": "Native Node.js standard library architecture with clean separation between public assets, admin API routes, and isolated private storage.",
+      "implementation": "Timing-safe authentication, atomic file writes with timestamped JSON history, and a 56-rule diagnostic audit engine.",
       "challenges": [
-        "Debugging silent triple-fault resets during paging initialization.",
-        "Stack misalignment triggering SSE exception faults in user-space code."
+        "Blocking directory traversal without using third-party web frameworks.",
+        "Ensuring 100% offline functionality with zero external fonts or CDN dependencies."
       ],
       "iterations": [
-        "Step 1: Real-mode 16-bit to 32-bit protected mode jump.",
-        "Step 2: 4-level paging setup and long-mode (64-bit) activation.",
-        "Step 3: Preemptive APIC timer scheduler with 4 priority bands."
+        "v1: Static HTML files.",
+        "v2: Native Node.js HTTP routing with REST API.",
+        "v3: CMS admin dashboard with atomic backups, version restore, and automated diagnostics."
       ],
-      "results": "Demonstrated stable preemption across 16 concurrent user tasks running isolated memory loops in QEMU.",
-      "lessonsLearned": "Hardware context switching requires meticulous ABI compliance; stack pointer alignment bugs can manifest as seemingly random CPU exceptions.",
+      "results": "100% Diagnostic Health Score across 56 validation rules and zero security boundary leaks.",
+      "lessonsLearned": "Standard library HTTP primitives provide exceptional security, speed, and zero supply-chain overhead.",
       "relatedProjects": [
-        "distributed-consensus-simulator"
+        "ops-tracker-system",
+        "playlist-rest-api"
       ]
     }
   ],
   "experience": [
     {
       "id": "exp-001",
-      "role": "[GRADUATE RESEARCH ASSISTANT]",
-      "organization": "[DEPARTMENT OF COMPUTER SCIENCE, UNIVERSITY NAME]",
+      "role": "Software & Systems Developer",
+      "organization": "Independent Engineering & Upskill",
       "period": "2024 — Present",
-      "location": "[City, Country]",
-      "type": "Academic",
-      "description": "Conducting experimental investigations into distributed storage reliability, consensus optimization, and high-performance I/O pipelines.",
+      "location": "Rizal, Philippines",
+      "type": "Professional",
+      "description": "Designing and developing production-grade backend APIs, relational database schemas, and zero-dependency developer tools.",
       "highlights": [
-        "Authored automated verification harness isolating edge cases in asynchronous consensus protocols.",
-        "Collaborated on grant proposals and technical papers covering storage-tiering efficiency.",
-        "Mentored undergraduate researchers in systems programming, benchmarking, and debugging."
+        "Architected normalized Many-to-Many REST API in FastAPI with SQLAlchemy 2.0 and automated pytest suites.",
+        "Engineered full-stack OpsTracker operational hub with atomic inventory balance validation and timesheet CSV exports."
       ]
     },
     {
       "id": "exp-002",
-      "role": "[SOFTWARE ENGINEERING INTERN (SYSTEMS)]",
-      "organization": "[RESEARCH LAB / TECH COMPANY NAME]",
+      "role": "Software Engineering Intern",
+      "organization": "Infrastructure & Systems",
       "period": "Summer 2024",
-      "location": "[City, Country]",
+      "location": "Remote",
       "type": "Professional",
-      "description": "Contributed to core infrastructure services, telemetry ingestion pipelines, and observability tooling.",
+      "description": "Contributed to core backend services, database migrations, and operational tooling.",
       "highlights": [
-        "Optimized log indexing throughput by 24% through memory-mapped I/O refactoring.",
-        "Constructed CI benchmark regression gates preventing performance degradation on main branch.",
-        "Authored comprehensive internal architecture documentation and runbooks."
-      ]
-    },
-    {
-      "id": "exp-003",
-      "role": "[UNDERGRADUATE TEACHING ASSISTANT]",
-      "organization": "[UNIVERSITY NAME]",
-      "period": "2023 — 2024",
-      "location": "[City, Country]",
-      "type": "Academic",
-      "description": "Guided 60+ students through computer systems, concurrency, memory management, and Unix environment mechanics.",
-      "highlights": [
-        "Conducted weekly lab office hours and code debugging clinics.",
-        "Designed automated unit test grading suites for assignment verification."
+        "Optimized query response times and schema indexing across relational tables.",
+        "Constructed automated regression tests reducing deployment issue frequency."
       ]
     }
   ],
   "education": [
     {
       "id": "edu-001",
-      "degree": "[MASTER OF SCIENCE IN COMPUTER SCIENCE]",
-      "institution": "[UNIVERSITY NAME]",
-      "period": "2024 — Expected 2026",
-      "location": "[City, Country]",
-      "focus": "Distributed Systems, Operating Systems & Storage Architectures",
-      "honors": "[Graduate Research Fellowship / Academic Distinction]"
-    },
-    {
-      "id": "edu-002",
-      "degree": "[BACHELOR OF SCIENCE IN COMPUTER SCIENCE / COMPUTER ENGINEERING]",
-      "institution": "[UNIVERSITY NAME]",
+      "degree": "B.S. in Computer Science",
+      "institution": "University",
       "period": "2020 — 2024",
-      "location": "[City, Country]",
-      "focus": "Core Computer Systems, Algorithms, Computer Architecture",
-      "honors": "[Dean's List / Magna Cum Laude / Honors Capstone]"
+      "location": "Philippines",
+      "focus": "Backend Architecture, Relational Databases & Systems Engineering",
+      "honors": "Dean's List"
     }
   ],
   "certifications": [
     {
-      "title": "[PROFESSIONAL CERTIFICATION TITLE]",
-      "issuer": "[ISSUING BODY / INSTITUTION]",
+      "title": "Python & Systems Foundations",
+      "issuer": "Technical Institute",
       "year": 2024,
-      "credentialId": "[CREDENTIAL-ID-0000]"
+      "credentialId": "SYS-8821"
     }
   ],
   "contact": {
-    "heading": "Get In Touch",
-    "note": "Open for research discussions, academic reviews, and systems engineering opportunities.",
-    "email": "[your.email@university.edu]",
-    "responseExpectation": "Typically responds within 1–2 business days."
+    "heading": "Contact",
+    "note": "Open to software engineering roles, backend systems, and technical discussions.",
+    "email": "labistejethro@gmail.com",
+    "responseExpectation": "Direct email response within 24 hours."
   }
 }

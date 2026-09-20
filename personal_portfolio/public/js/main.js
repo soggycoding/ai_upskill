@@ -1,6 +1,6 @@
 /**
  * Main Public Portfolio Client Engine
- * Vanilla JS · Data-Driven · Accessible · 100% Offline
+ * Vanilla JS · Data-Driven · Minimal & Concise
  */
 
 let portfolioData = null;
@@ -18,7 +18,7 @@ async function loadPortfolioData() {
     console.error('Error loading portfolio:', err);
     const main = document.getElementById('main-content');
     if (main) {
-      main.innerHTML = `<div class="container" style="padding: 60px 0;"><p style="color: var(--accent);">Failed to load portfolio content. Ensure the local server is running at <code>127.0.0.1:3000</code>.</p></div>`;
+      main.innerHTML = `<div class="container" style="padding: 40px 0;"><p style="color: var(--accent);">Failed to load portfolio content. Ensure the local server is running.</p></div>`;
     }
   }
 }
@@ -38,15 +38,15 @@ function renderProfile(profile) {
 
   // Header
   const logoName = document.getElementById('header-name');
-  if (logoName) logoName.textContent = profile.name || '[YOUR NAME]';
+  if (logoName) logoName.textContent = profile.name || 'Jethro Navarro';
   const logoStatus = document.getElementById('header-status');
-  if (logoStatus) logoStatus.textContent = profile.status || 'Active';
+  if (logoStatus) logoStatus.textContent = profile.tagline || 'Developer';
 
   // Hero
   const heroName = document.getElementById('hero-name');
-  if (heroName) heroName.textContent = profile.name || '[YOUR NAME]';
+  if (heroName) heroName.textContent = profile.name || 'Jethro Navarro';
   const heroIdentity = document.getElementById('hero-identity');
-  if (heroIdentity) heroIdentity.textContent = profile.identity || '[YOUR ACADEMIC / PROFESSIONAL IDENTITY]';
+  if (heroIdentity) heroIdentity.textContent = profile.identity || 'Software & Systems Developer';
   const heroIntro = document.getElementById('hero-intro');
   if (heroIntro) heroIntro.textContent = profile.shortIntro || '';
 
@@ -60,7 +60,7 @@ function renderProfile(profile) {
       </div>
       <div class="hero-meta-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-        <span>${escapeHtml(profile.location || 'Localhost')}</span>
+        <span>${escapeHtml(profile.location || 'Philippines')}</span>
       </div>
       <div class="hero-meta-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -81,7 +81,7 @@ function renderProjects(projects) {
   if (filterPillsContainer && categories.length > 2) {
     filterPillsContainer.innerHTML = categories.map(cat => `
       <button class="pill ${cat === activeCategory ? 'active' : ''}" data-category="${escapeHtml(cat)}">
-        ${escapeHtml(cat === 'all' ? 'All Areas' : cat)}
+        ${escapeHtml(cat === 'all' ? 'All' : cat)}
       </button>
     `).join('');
 
@@ -124,8 +124,8 @@ function applyProjectFilters() {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--text-muted); background: var(--bg-secondary); border-radius: var(--radius-md); border: 1px dashed var(--border);">
-        <p>No projects match your current search query or filter selection.</p>
+      <div style="grid-column: 1/-1; padding: 32px; text-align: center; color: var(--text-muted); background: var(--bg-secondary); border-radius: var(--radius-md); border: 1px dashed var(--border);">
+        <p>No matching projects found.</p>
       </div>
     `;
     return;
@@ -141,7 +141,7 @@ function applyProjectFilters() {
           <div class="project-meta-top">
             <span>${p.year || ''}</span>
             <span>·</span>
-            <span>${escapeHtml(p.category || 'Engineering')}</span>
+            <span>${escapeHtml(p.category || '')}</span>
           </div>
           <span class="status-badge ${statusClass}">${escapeHtml(p.status || 'Active')}</span>
         </div>
@@ -152,20 +152,16 @@ function applyProjectFilters() {
         
         <p class="project-card-desc">${escapeHtml(p.shortDescription || '')}</p>
         
-        <div class="project-role-badge">
-          Role: ${escapeHtml(p.role || 'Contributor')}
-        </div>
-        
         <div class="project-tags">
           ${tagsHtml}
         </div>
         
         <div class="project-card-footer">
           <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">
-            ${(p.technologies || []).slice(0, 2).join(', ')}
+            ${escapeHtml(p.role || '')}
           </span>
-          <a href="/project.html?slug=${encodeURIComponent(p.slug)}" class="project-card-link" aria-label="Read technical case study for ${escapeHtml(p.title)}">
-            <span>Case Study</span>
+          <a href="/project.html?slug=${encodeURIComponent(p.slug)}" class="project-card-link" aria-label="View project ${escapeHtml(p.title)}">
+            <span>Details</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
@@ -181,7 +177,6 @@ function renderCapabilities(capabilities) {
   container.innerHTML = capabilities.map(cap => `
     <div class="capability-card">
       <h3 class="capability-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
         ${escapeHtml(cap.category)}
       </h3>
       <ul class="capability-items">
@@ -249,14 +244,14 @@ function initWebGLToggle() {
   function updateState() {
     if (isEnabled) {
       container.style.display = 'block';
-      toggleBtn.textContent = 'Hide 3D Experiment';
+      toggleBtn.textContent = 'Hide 3D Topology';
       toggleBtn.classList.add('active');
       if (!webglInstance && window.initWebGLExperiment) {
         webglInstance = window.initWebGLExperiment('hero-webgl-canvas');
       }
     } else {
       container.style.display = 'none';
-      toggleBtn.textContent = 'View 3D Cluster Topology (Prototype)';
+      toggleBtn.textContent = '3D Topology (Prototype)';
       toggleBtn.classList.remove('active');
       if (webglInstance) {
         webglInstance.destroy();
